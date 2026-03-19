@@ -1,0 +1,18 @@
+package gio.hobist.Dto.ResponseDto;
+
+import gio.hobist.Dto.CountryCityDto;
+
+import java.util.UUID;
+
+public record UserResponseDto (
+       UUID id,
+       String name,
+       String surname,
+       String email,
+       String profilePicture,
+       CountryCityDto Country,
+       CountryCityDto city,
+       String userPageDescription,
+       int numberOfPosts,
+       int numberOfFriends
+){}
