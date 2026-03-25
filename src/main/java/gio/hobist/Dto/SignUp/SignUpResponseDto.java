@@ -1,8 +1,8 @@
-package gio.hobist.Dto.ResponseDto;
+package gio.hobist.Dto.SignUp;
 
 import java.util.UUID;
 
-public record AuthenticationSignUpResponseDto(
+public record SignUpResponseDto(
         UUID id,
         String name,
         String email
