@@ -1,12 +1,13 @@
 package gio.hobist.Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Table(name = "\"user\"")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -48,6 +49,22 @@ public class User {
 
     @Column(name = "profile_image")
     private String profile_image;
+
+    @Override
+    public String getUsername() {
+        return email;//M.G: username is not unique but email is so we will use it instead
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
 
     public User( String userName, String userSurname,  String email,  String password) {//M.G: this constructor is in use don't delete it again!!
         this.name = userName;

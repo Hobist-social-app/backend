@@ -1,14 +1,16 @@
 package gio.hobist.Service;
 
-import gio.hobist.Dto.AuthenticationDto;
-import gio.hobist.Dto.ResponseDto.AuthenticationSignUpResponseDto;
+import gio.hobist.Dto.AuthenticationDto.AuthenticationRequestDto;
+import gio.hobist.Dto.AuthenticationDto.AuthenticationResponseDto;
+import gio.hobist.Dto.SignUp.SignUpRequestDto;
 import gio.hobist.Entity.User;
 import gio.hobist.Exception.AutenticationException;
-import gio.hobist.Mapper.UserMapper;
 import gio.hobist.Repository.UserRepository;
 import gio.hobist.utils.PasswordHasher;
 import gio.hobist.utils.PasswordValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,74 +19,75 @@ public class AuthenticationService {
 
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
-    public AuthenticationSignUpResponseDto signUpUser(AuthenticationDto DtoUser){
-        if(DtoUser.getName()==null || DtoUser.getName().equals("") ){
+    public AuthenticationResponseDto signUpUser(SignUpRequestDto DtoUser){
+        if(DtoUser.name()==null || DtoUser.name().equals("") ){
             throw new AutenticationException("name missing");
         }
-        else if(DtoUser.getSurname()==null || DtoUser.getSurname().equals("") ){
+        else if(DtoUser.surname()==null || DtoUser.surname().equals("") ){
             throw new AutenticationException("surname missing");
 
         }
-        else if(DtoUser.getPassword()==null || DtoUser.getPassword().equals("") ){
+        else if(DtoUser.password()==null || DtoUser.password().equals("") ){
             throw new AutenticationException("password missing");
         }
         
         // Validate password strength
-        var passwordErrors = PasswordValidator.validatePassword(DtoUser.getPassword());
+        var passwordErrors = PasswordValidator.validatePassword(DtoUser.password());
         if (!passwordErrors.isEmpty()) {
             throw new AutenticationException(String.join(", ", passwordErrors));
         }
         
-        if(DtoUser.getEmail()==null || DtoUser.getEmail().equals("") ){
+        if(DtoUser.email()==null || DtoUser.email().equals("") ){
             throw new AutenticationException("email missing");
         }
-        else if(DtoUser.getConfirmPassword()==null || DtoUser.getConfirmPassword().equals("") ){
+        else if(DtoUser.confirmPassword()==null || DtoUser.confirmPassword().equals("") ){
             throw new AutenticationException("confirmed password missing");
         }
-        else if(!DtoUser.getPassword().equals(DtoUser.getConfirmPassword())){
+        else if(!DtoUser.password().equals(DtoUser.confirmPassword())){
             throw new AutenticationException("passwords do not match");
         }
 
         PasswordHasher hashingObject=new PasswordHasher();
-        var hashedPassword=hashingObject.hashPassword(DtoUser.getPassword());
-
+        var hashedPassword=hashingObject.hashPassword(DtoUser.password());
 
         var user = new User(
-                DtoUser.getName(),
-                DtoUser.getSurname(),
-                DtoUser.getEmail(),
+                DtoUser.name(),
+                DtoUser.surname(),
+                DtoUser.email(),
                 hashedPassword
         );
 
       userRepository.save(user);
 
-      return userMapper.toAuthenticationSignUpResponseDto(user);
+      var jwt = jwtService.generateToken(user);
+
+      return new  AuthenticationResponseDto(jwt);
     }
 
-    public AuthenticationSignUpResponseDto logInUser(AuthenticationDto DtoUser){
+    public AuthenticationResponseDto logInUser(AuthenticationRequestDto DtoUser){
 
-        if(DtoUser.getEmail()==null || DtoUser.getEmail().isBlank() ){
+        if(DtoUser.email()==null || DtoUser.email().isBlank() ){
             throw new AutenticationException("email or password is missing");
         }
-        else if(DtoUser.getPassword()==null || DtoUser.getPassword().isBlank() ){
+        else if(DtoUser.password()==null || DtoUser.password().isBlank() ){
             throw new AutenticationException("email or password is missing");
        }
 
-        var user =userRepository.findByEmail(DtoUser.getEmail());
-        if(user==null){
-            throw new AutenticationException("email or password is missing");
-        }
+        authenticationManager.authenticate(//M.G: this is connected to JwtAuthenticationFilter class
+                new UsernamePasswordAuthenticationToken(
+                        DtoUser.email(),
+                        DtoUser.password()
+                )
+        );
 
-       if (PasswordHasher.verifyPassword(DtoUser.getPassword(),user.getPassword())){
+        var user =userRepository.findByEmail(DtoUser.email());
+        var jwt=jwtService.generateToken(user);
 
-           return userMapper.toAuthenticationSignUpResponseDto(user);
-       }
-       else{
-           throw new AutenticationException("invalid input");
+         return new AuthenticationResponseDto(jwt);
 
-       }
 
     }
 
