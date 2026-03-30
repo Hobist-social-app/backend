@@ -1,9 +1,10 @@
 # Hobist backend
 
 ## about
-    Made with Java/spring boo. Project is being refactored
+    Made with Java/spring boot. Project is being refactored
     for new technology and architecture.
-    this project is deployed on render 
+    this project is deployed on Render,
+    database is deployed on Neon
 
 ## Working features
     - Login/signup
