@@ -1,3 +1,4 @@
 .env
 .idea
 src/main/resources/psw.properties
+target/
