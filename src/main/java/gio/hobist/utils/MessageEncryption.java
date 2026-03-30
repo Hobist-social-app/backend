@@ -15,6 +15,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 
+//M.G: keys are in plaintext for now. I will add it to env var later
 public class MessageEncryption {
 
    private static KeyPair keys ;

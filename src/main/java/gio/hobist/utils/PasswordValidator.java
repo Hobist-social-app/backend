@@ -3,6 +3,8 @@ package gio.hobist.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Deprecated
 public class PasswordValidator {
     
     public static List<String> validatePassword(String password) {
