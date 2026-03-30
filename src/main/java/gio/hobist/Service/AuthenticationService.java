@@ -34,11 +34,11 @@ public class AuthenticationService {
             throw new AutenticationException("password missing");
         }
         
-        // Validate password strength
-        var passwordErrors = PasswordValidator.validatePassword(DtoUser.password());
-        if (!passwordErrors.isEmpty()) {
-            throw new AutenticationException(String.join(", ", passwordErrors));
-        }
+        // Validate password strength //M.G: now validated on frontend
+//        var passwordErrors = PasswordValidator.validatePassword(DtoUser.password());
+//        if (!passwordErrors.isEmpty()) {
+//            throw new AutenticationException(String.join(", ", passwordErrors));
+//        }
         
         if(DtoUser.email()==null || DtoUser.email().equals("") ){
             throw new AutenticationException("email missing");
@@ -64,7 +64,8 @@ public class AuthenticationService {
 
       var jwt = jwtService.generateToken(user);
 
-      return new  AuthenticationResponseDto(jwt);
+      //M.G: for now it doesn't return user id but i should add it so it logsin after sign up
+      return new  AuthenticationResponseDto(null,jwt);
     }
 
     public AuthenticationResponseDto logInUser(AuthenticationRequestDto DtoUser){
@@ -86,7 +87,7 @@ public class AuthenticationService {
         var user =userRepository.findByEmail(DtoUser.email());
         var jwt=jwtService.generateToken(user);
 
-         return new AuthenticationResponseDto(jwt);
+         return new AuthenticationResponseDto(user.getId(),jwt);
 
 
     }
