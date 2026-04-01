@@ -49,6 +49,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/authentication/users").permitAll()
                         .requestMatchers("/authentication/login").permitAll()
+                        .requestMatchers("/health/check").permitAll()
                         //everything else requires authentication
                         .anyRequest().authenticated()
                 )
