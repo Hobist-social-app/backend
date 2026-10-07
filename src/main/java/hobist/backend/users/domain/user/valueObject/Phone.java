@@ -4,13 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
-@ToString
-@EqualsAndHashCode
-public class Phone {
+public record Phone(@NonNull String phone) {
 
     private static final String E_164_PATTERN = "^[1-9]\\d{1,14}$";
-
-    private final @NonNull String phone;
 
     //number of digits is not tested because it varies from country to country
     public Phone(String phone) {
@@ -23,7 +19,6 @@ public class Phone {
         this.phone = phoneVal;
     }
 
-    public String value() {return phone;}
 
     private String stripAllWhiteSpaces(String str){
         var x = str.replaceAll("\\s+","");

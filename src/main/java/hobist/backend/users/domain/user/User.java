@@ -1,6 +1,7 @@
 package hobist.backend.users.domain.user;
 
 import hobist.backend.users.domain.user.valueObject.Nickname;
+import hobist.backend.users.domain.user.valueObject.Phone;
 import hobist.backend.users.domain.user.valueObject.UserId;
 
 public interface User {
@@ -9,5 +10,5 @@ public interface User {
 
    Nickname nickname();
 
-
+   Phone phone();
 }
