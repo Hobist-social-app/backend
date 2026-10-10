@@ -1,4 +1,4 @@
-package hobist.backend.users.domain.user.valueObject;
+package hobist.backend.users.domain.user.valueObjects;
 
 import lombok.NonNull;
 

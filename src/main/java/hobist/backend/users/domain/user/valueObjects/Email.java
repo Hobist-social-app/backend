@@ -1,8 +1,6 @@
-package hobist.backend.users.domain.user.valueObject;
+package hobist.backend.users.domain.user.valueObjects;
 
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
-import lombok.ToString;
 
 public record Email(@NonNull String email) {
 

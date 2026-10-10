@@ -1,6 +1,6 @@
 package hobist.backend.users.user.valueObjects;
 
-import hobist.backend.users.domain.user.valueObject.Email;
+import hobist.backend.users.domain.user.valueObjects.Email;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -19,9 +19,9 @@ public class EmailTests {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"namesurnamegmail.com","@gmail.com","namesurnamegmail.com@",
-    "name surname@gmail.com","name@surname@yahoo.com",".namesurname@gmail.com","namesurname@gmai_l.hr"
-    , "companyname@gmail","bignameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee@gmail.coooom"})
+    @ValueSource(strings ={"ivan.gmail.com", "@gmail.com", "ivan@", "ivan@gmail",
+            "ivan..horvat@gmail.com", ".ivan@gmail.com", "ivan.@gmail.com",
+            "ivan@gmail..com", "ivan@-gmail.com", "ivan@gmail-.com"})
     void shouldThrowException(String str){
        IllegalArgumentException e =assertThrows(IllegalArgumentException.class
                ,() -> new Email(str));
