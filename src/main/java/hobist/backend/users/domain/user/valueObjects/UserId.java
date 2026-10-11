@@ -1,9 +1,11 @@
 package hobist.backend.users.domain.user.valueObjects;
 
+import jakarta.persistence.Embeddable;
 import lombok.NonNull;
 
 import java.util.UUID;
 
+@Embeddable
 public record UserId(@NonNull UUID id) {
 
 

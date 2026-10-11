@@ -14,6 +14,7 @@ import java.util.UUID;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "\"user\"")
+@Deprecated
 public class UserEntity {
 
     @Id

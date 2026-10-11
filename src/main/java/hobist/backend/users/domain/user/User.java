@@ -2,29 +2,75 @@ package hobist.backend.users.domain.user;
 
 import hobist.backend.users.domain.user.enums.StateOfAccount;
 import hobist.backend.users.domain.user.valueObjects.*;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
-import java.util.Optional;
+import java.time.Instant;
 
-public interface User {
+@Entity
+@Getter
+@Setter
+@Accessors(chain = true)//I can now chain setters on user creation
+@RequiredArgsConstructor
+@Table(name = "\"user\"")
+public class User {
 
-   UserId id();
+   @Id
+   @EmbeddedId
+   @GeneratedValue
+   private UserId id;
 
-   Nickname nickname();
+   @Embedded
+   private Nickname nickname;
 
-   Phone phone();
+   @Embedded
+   private Phone phone;
 
-   Email email();
+   @Embedded
+   private Email email;
 
-   PasswordHash passwordHash ();
+   @Embedded
+   @JoinColumn(name = "password_hash")
+   private PasswordHash passwordHash ;
 
-   Timestamp createdAt();
+   @JoinColumn(name = "created_at")
+   @CreationTimestamp
+   @Column(nullable = false, updatable = false)
+   private Instant createdAt;
 
-   Timestamp lastLoginAt();
+   @JoinColumn(name = "last_login_at")
+   private Instant  lastLoginAt;
 
-   Optional<Timestamp> deletedAt();
+   @JoinColumn(name = "deleted_at")
+   @Column(nullable = true)
+   private Instant deletedAt;
 
-   Timestamp updateAt();
+   @JoinColumn(name = "updated_at")
+   @Column(nullable = false)
+   @UpdateTimestamp
+   private Instant updateAt;
 
-   StateOfAccount stateOfAccount();
+   @JoinColumn(name = "state_of_account")
+   private StateOfAccount stateOfAccount;
+
+   public static User Create(String nickname
+                             ,String phone
+                             ,String email
+                             ){
+
+      return new User()
+              .setNickname(new Nickname(nickname))
+              .setPhone(new Phone(phone))
+              .setEmail(new Email(email))
+              .setCreatedAt(Instant.now())
+              .setLastLoginAt(Instant.now())
+              .setDeletedAt(null)
+              .setUpdateAt(Instant.now())
+              .setStateOfAccount(StateOfAccount.ACTIVE);
+   }
 }

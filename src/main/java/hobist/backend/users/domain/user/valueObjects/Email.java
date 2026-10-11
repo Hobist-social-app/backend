@@ -1,7 +1,9 @@
 package hobist.backend.users.domain.user.valueObjects;
 
+import jakarta.persistence.Embeddable;
 import lombok.NonNull;
 
+@Embeddable
 public record Email(@NonNull String email) {
 
     private static final String EMAIL_PATTERN = "^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+" +
