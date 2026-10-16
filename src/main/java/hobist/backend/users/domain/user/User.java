@@ -20,7 +20,6 @@ import java.time.Instant;
 @Table(name = "\"user\"")
 public class User {
 
-   @Id
    @EmbeddedId
    @GeneratedValue
    private UserId id;
@@ -64,6 +63,7 @@ public class User {
                              ){
 
       return new User()
+              .setId(UserId.generate())
               .setNickname(new Nickname(nickname))
               .setPhone(new Phone(phone))
               .setEmail(new Email(email))
@@ -72,5 +72,7 @@ public class User {
               .setDeletedAt(null)
               .setUpdateAt(Instant.now())
               .setStateOfAccount(StateOfAccount.ACTIVE);
+
+
    }
 }

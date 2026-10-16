@@ -28,34 +28,16 @@ public class SignUpService {
 
        throw new NotImplementedException("Unfinished method!");
 
-        var object=  Try.of(() ->
-                User.Create(dto.nickname(),dto.phone(),dto.email()))
-                .map(o -> o.setId(new UserId(UUID.randomUUID()))
-                );
+        var user=User.Create(dto.nickname(),dto.phone(),dto.email());
 
         /* hashing the password*/
 
-        if (object.isFailure()) {
-            Throwable ex=object.failed().get();
-
-            if (ex instanceof IllegalArgumentException) {
-               throw (IllegalArgumentException) ex;
-            }
-            else if (ex instanceof NullPointerException) {
-                throw (NullPointerException) ex;
-            }
-            else if (ex instanceof RuntimeException){
-                throw (RuntimeException) ex;
-            }
-        }
-
-        var user=object.get();
-
-
-       userRepository.save(user);
+        userRepository.save(user);
 
        eventPublisher.publishEvent(new UserSignedUpEvent(user.getId().id(), Instant.now()));
             //M.G: add listener class later
+
+        return new SignUpResponseDto(user.getId().id());
     };
 
 }
