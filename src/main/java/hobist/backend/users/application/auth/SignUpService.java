@@ -1,20 +1,17 @@
 package hobist.backend.users.application.auth;
 
 import hobist.backend.users.domain.user.User;
-import hobist.backend.users.domain.user.event.UserSignedUpEvent;
-import hobist.backend.users.domain.user.valueObjects.UserId;
+import hobist.backend.users.domain.user.events.UserSignedUpEvent;
 import hobist.backend.users.infrastructure.user.UserRepository;
-import hobist.backend.users.presentation.dtos.SignUpRequestDto;
-import hobist.backend.users.presentation.dtos.SignUpResponseDto;
-import io.vavr.control.Try;
+import hobist.backend.users.application.dtos.SignUpRequestDto;
+import hobist.backend.users.application.dtos.SignUpResponseDto;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.password.AbstractValidatingPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -23,14 +20,21 @@ public class SignUpService {
 
     private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final AbstractValidatingPasswordEncoder passwordEncoder;
 
-    public SignUpResponseDto SignUp(@NonNull SignUpRequestDto dto) {
+    public SignUpResponseDto signUp(@NonNull SignUpRequestDto dto) {
 
-       throw new NotImplementedException("Unfinished method!");
+        if ( dto.rawPassword()==null || dto.rawPassword().isBlank()){
+            throw new IllegalArgumentException("Password is required!");
+        }
+       var hash=passwordEncoder.encode(dto.rawPassword().strip());
 
-        var user=User.Create(dto.nickname(),dto.phone(),dto.email());
+        var user=new User(
+                dto.nickname()
+                ,dto.phone()
+                ,dto.email()
+                ,hash);
 
-        /* hashing the password*/
 
         userRepository.save(user);
 

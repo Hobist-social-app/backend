@@ -11,11 +11,6 @@ CREATE TYPE language AS ENUM(
     'eng'
 ):
 
-CREATE TYPE profile_visibility AS ENUM(
-   'private',
-   'public'
-);
-
 CREATE TYPE display_mode AS ENUM(
     'light',
     'dark',
@@ -24,7 +19,7 @@ CREATE TYPE display_mode AS ENUM(
 
 CREATE TYPE online_visibility AS ENUM(
    'visible',
-    'not visible'
+   'not visible'
     --????
 );
 
@@ -51,9 +46,9 @@ CREATE UNIQUE INDEX uq_users_nickname ON users (LOWER(nickname)); --makes nickna
 CREATE TABLE user_preferences(
     user_id UUID PRIMARY KEY DEFAULT uuidv7(),
     language language NOT NULL DEFAULT 'eng',
-    email_notification BOOLEAN NOT NULL DEFAULT TRUE,
+    email_notification_enabled BOOLEAN NOT NULL DEFAULT TRUE,
     display_mode display_mode NOT NULL DEFAULT 'auto',
-    profile_visibility profile_visibility NOT NULL DEFAULT 'private',
+    is_profile_private BOOLEAN NOT NULL DEFAULT TRUE,
     online_visibility online_visibility NOT NULL DEFAULT 'visible',
 
     CONSTRAINT fq_user_preferences_user_id

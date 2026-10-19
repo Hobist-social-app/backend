@@ -14,10 +14,9 @@ import java.time.Instant;
 
 @Entity
 @Getter
-@Setter
 @Accessors(chain = true)//I can now chain setters on user creation
 @RequiredArgsConstructor
-@Table(name = "\"user\"")
+@Table(name = "\"users\"")
 public class User {
 
    @EmbeddedId
@@ -57,22 +56,21 @@ public class User {
    @JoinColumn(name = "state_of_account")
    private StateOfAccount stateOfAccount;
 
-   public static User Create(String nickname
+   public User(String nickname
                              ,String phone
                              ,String email
+                             ,String hash
                              ){
 
-      return new User()
-              .setId(UserId.generate())
-              .setNickname(new Nickname(nickname))
-              .setPhone(new Phone(phone))
-              .setEmail(new Email(email))
-              .setCreatedAt(Instant.now())
-              .setLastLoginAt(Instant.now())
-              .setDeletedAt(null)
-              .setUpdateAt(Instant.now())
-              .setStateOfAccount(StateOfAccount.ACTIVE);
-
-
+      this.id=UserId.generate();
+      this.nickname=new Nickname(nickname);
+      this.phone=new Phone(phone);
+      this.email=new Email(email);
+      this.passwordHash=new PasswordHash(hash);
+      this.createdAt=Instant.now();
+      this.lastLoginAt=Instant.now();
+      this.deletedAt=null;
+      this.updateAt=Instant.now();
+      this.stateOfAccount=StateOfAccount.ACTIVE;
    }
 }

@@ -1,4 +1,4 @@
-package hobist.backend.users.domain.user.event;
+package hobist.backend.users.domain.user.events;
 
 import lombok.NonNull;
 
