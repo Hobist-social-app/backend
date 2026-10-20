@@ -5,16 +5,15 @@ import hobist.backend.users.domain.user.valueObjects.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 
 @Entity
 @Getter
-@Accessors(chain = true)//I can now chain setters on user creation
 @RequiredArgsConstructor
 @Table(name = "\"users\"")
 public class User {
@@ -33,27 +32,26 @@ public class User {
    private Email email;
 
    @Embedded
-   @JoinColumn(name = "password_hash")
+   @Column(name = "password_hash")
    private PasswordHash passwordHash ;
 
-   @JoinColumn(name = "created_at")
    @CreationTimestamp
-   @Column(nullable = false, updatable = false)
+   @Column(name = "created_at",nullable = false, updatable = false)
    private Instant createdAt;
 
-   @JoinColumn(name = "last_login_at")
+   @Column(name = "last_login_at")
    private Instant  lastLoginAt;
 
-   @JoinColumn(name = "deleted_at")
-   @Column(nullable = true)
+   @Column(name = "deleted_at",nullable = true)
    private Instant deletedAt;
 
-   @JoinColumn(name = "updated_at")
-   @Column(nullable = false)
+   @Column(name = "updated_at",nullable = false)
    @UpdateTimestamp
    private Instant updateAt;
 
-   @JoinColumn(name = "state_of_account")
+   @Enumerated(EnumType.STRING)
+   @JdbcTypeCode(SqlTypes.NAMED_ENUM)//this and upper line is needed for translation of enum to postgreSQL naming convention
+   @Column(name = "state_of_account",nullable = false)
    private StateOfAccount stateOfAccount;
 
    public User(String nickname
