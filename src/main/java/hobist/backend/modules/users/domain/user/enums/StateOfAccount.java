@@ -1,4 +1,4 @@
-package hobist.backend.users.domain.user.enums;
+package hobist.backend.modules.users.domain.user.enums;
 
 
 import jakarta.persistence.EnumeratedValue;

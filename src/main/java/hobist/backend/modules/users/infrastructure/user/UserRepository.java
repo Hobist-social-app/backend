@@ -1,6 +1,6 @@
-package hobist.backend.users.infrastructure.user;
+package hobist.backend.modules.users.infrastructure.user;
 
-import hobist.backend.users.domain.user.User;
+import hobist.backend.modules.users.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

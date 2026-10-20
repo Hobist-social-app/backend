@@ -1,4 +1,4 @@
-package hobist.backend.users.domain.user.valueObjects;
+package hobist.backend.modules.users.domain.user.valueObjects;
 
 import jakarta.persistence.Embeddable;
 import lombok.NonNull;

@@ -1,8 +1,8 @@
-package hobist.backend.users.presentation.rest;
+package hobist.backend.modules.users.presentation.rest;
 
-import hobist.backend.users.application.auth.SignUpService;
-import hobist.backend.users.application.dtos.SignUpRequestDto;
-import hobist.backend.users.application.dtos.SignUpResponseDto;
+import hobist.backend.modules.users.application.signUp.SignUpService;
+import hobist.backend.modules.users.application.dtos.signUp.SignUpRequestDto;
+import hobist.backend.modules.users.application.dtos.signUp.SignUpResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class AuthenticationRestController {
+public class SignUpRestController {
 
     private final SignUpService signUpService;
 

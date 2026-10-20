@@ -1,6 +1,11 @@
-package hobist.backend.users.domain.user;
+package hobist.backend.modules.users.domain.user;
 
-import hobist.backend.users.domain.user.enums.StateOfAccount;
+import hobist.backend.modules.users.domain.user.valueObjects.Email;
+import hobist.backend.modules.users.domain.user.valueObjects.Nickname;
+import hobist.backend.modules.users.domain.user.valueObjects.PasswordHash;
+import hobist.backend.modules.users.domain.user.valueObjects.Phone;
+import hobist.backend.shared.domain.valueObjects.EntityId;
+import hobist.backend.modules.users.domain.user.enums.StateOfAccount;
 import hobist.backend.users.domain.user.valueObjects.*;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,7 +25,7 @@ public class User {
 
    @EmbeddedId
    @GeneratedValue
-   private UserId id;
+   private EntityId id;
 
    @Embedded
    private Nickname nickname;
@@ -60,7 +65,7 @@ public class User {
                              ,String hash
                              ){
 
-      this.id=UserId.generate();
+      this.id=EntityId.generate();
       this.nickname=new Nickname(nickname);
       this.phone=new Phone(phone);
       this.email=new Email(email);

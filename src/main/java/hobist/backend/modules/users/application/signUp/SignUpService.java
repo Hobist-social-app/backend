@@ -1,10 +1,10 @@
-package hobist.backend.users.application.auth;
+package hobist.backend.modules.users.application.signUp;
 
-import hobist.backend.users.domain.user.User;
-import hobist.backend.users.domain.user.events.UserSignedUpEvent;
-import hobist.backend.users.infrastructure.user.UserRepository;
-import hobist.backend.users.application.dtos.SignUpRequestDto;
-import hobist.backend.users.application.dtos.SignUpResponseDto;
+import hobist.backend.modules.users.domain.user.User;
+import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
+import hobist.backend.modules.users.infrastructure.user.UserRepository;
+import hobist.backend.modules.users.application.dtos.signUp.SignUpRequestDto;
+import hobist.backend.modules.users.application.dtos.signUp.SignUpResponseDto;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

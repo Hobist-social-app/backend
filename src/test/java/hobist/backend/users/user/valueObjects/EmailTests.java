@@ -1,6 +1,6 @@
 package hobist.backend.users.user.valueObjects;
 
-import hobist.backend.users.domain.user.valueObjects.Email;
+import hobist.backend.modules.users.domain.user.valueObjects.Email;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

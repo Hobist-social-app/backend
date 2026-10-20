@@ -1,4 +1,4 @@
-package hobist.backend.users.infrastructure.user.config;
+package hobist.backend.modules.users.infrastructure.user.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
