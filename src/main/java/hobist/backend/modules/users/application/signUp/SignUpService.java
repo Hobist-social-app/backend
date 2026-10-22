@@ -5,6 +5,7 @@ import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
 import hobist.backend.modules.users.application.dtos.signUp.SignUpRequestDto;
 import hobist.backend.modules.users.application.dtos.signUp.SignUpResponseDto;
+import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -22,6 +23,7 @@ public class SignUpService {
     private final ApplicationEventPublisher eventPublisher;
     private final AbstractValidatingPasswordEncoder passwordEncoder;
 
+    @Transactional
     public SignUpResponseDto signUp(@NonNull SignUpRequestDto dto) {
 
         if ( dto.rawPassword()==null || dto.rawPassword().isBlank()){

@@ -1,14 +1,16 @@
 package hobist.backend.modules.users.domain.user;
 
+import hobist.backend.modules.users.domain.user.enums.Role;
 import hobist.backend.modules.users.domain.user.valueObjects.Email;
 import hobist.backend.modules.users.domain.user.valueObjects.Nickname;
 import hobist.backend.modules.users.domain.user.valueObjects.PasswordHash;
 import hobist.backend.modules.users.domain.user.valueObjects.Phone;
 import hobist.backend.shared.domain.valueObjects.EntityId;
 import hobist.backend.modules.users.domain.user.enums.StateOfAccount;
-import hobist.backend.users.domain.user.valueObjects.*;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -19,12 +21,11 @@ import java.time.Instant;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)//M.G: this is set so hibernate can map database table to this object with java reflection
 @Table(name = "\"users\"")
 public class User {
 
    @EmbeddedId
-   @GeneratedValue
    private EntityId id;
 
    @Embedded
@@ -59,6 +60,11 @@ public class User {
    @Column(name = "state_of_account",nullable = false)
    private StateOfAccount stateOfAccount;
 
+   @Enumerated(EnumType.STRING)
+   @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+   @Column(name= "role", nullable = false)
+   private Role role;
+
    public User(String nickname
                              ,String phone
                              ,String email
@@ -75,5 +81,6 @@ public class User {
       this.deletedAt=null;
       this.updateAt=Instant.now();
       this.stateOfAccount=StateOfAccount.ACTIVE;
+      this.role=Role.USER;
    }
 }

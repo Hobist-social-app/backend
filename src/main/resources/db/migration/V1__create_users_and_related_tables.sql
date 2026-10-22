@@ -1,4 +1,3 @@
---migration script for PostgreSQL 18 (lower versions won't work)
 
 CREATE TYPE state_of_account AS ENUM(
     'active',
@@ -27,9 +26,14 @@ CREATE TYPE token_type AS ENUM(
     'email_verification'
 );
 
+CREATE TYPE role AS ENUM(
+    'user',
+    'admin'
+);
+
 
 CREATE TABLE users(
-    id UUID PRIMARY KEY DEFAULT uuidv7(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     nickname VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
     email VARCHAR(255) NOT NULL,
@@ -38,7 +42,8 @@ CREATE TABLE users(
     last_login_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     deleted_at TIMESTAMPTZ,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-    state_of_account state_of_account NOT NULL DEFAULT 'active'
+    state_of_account state_of_account NOT NULL DEFAULT 'active',
+    role role NOT NULL DEFAULT 'user'
 
 );
 
@@ -82,11 +87,11 @@ CREATE TABLE user_profiles(
 );
 
 CREATE TABLE hobby(
-    id UUID PRIMARY KEY DEFAULT uuidv7(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL
 
 );
-    CREATE INDEX idx_hobby_name ON hobby(name);
+    CREATE UNIQUE INDEX idx_hobby_name ON hobby(name);
 
 CREATE TABLE user_hobby(
     user_id UUID,
@@ -102,7 +107,7 @@ CREATE TABLE user_hobby(
 
 
 CREATE TABLE user_session(
-    id UUID PRIMARY KEY DEFAULT uuidv7(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     hash VARCHAR(255) NOT NULL,
     expires_at TIMESTAMPTZ NOT NULL,
@@ -119,7 +124,7 @@ CREATE TABLE user_session(
 
 
 CREATE TABLE one_time_token(
-    id UUID PRIMARY KEY DEFAULT uuidv7(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     hash VARCHAR(255) NOT NULL,
     expires_at TIMESTAMPTZ NOT NULL,
@@ -131,3 +136,4 @@ CREATE TABLE one_time_token(
 );
 
     CREATE INDEX idx_one_time_token_user_id ON one_time_token(user_id);
+    CREATE INDEX idx_one_time_token_hash ON one_time_token(hash);

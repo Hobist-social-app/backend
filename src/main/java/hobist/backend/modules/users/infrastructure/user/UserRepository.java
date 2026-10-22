@@ -1,9 +1,10 @@
 package hobist.backend.modules.users.infrastructure.user;
 
 import hobist.backend.modules.users.domain.user.User;
+import hobist.backend.shared.domain.valueObjects.EntityId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, EntityId> {
 }
