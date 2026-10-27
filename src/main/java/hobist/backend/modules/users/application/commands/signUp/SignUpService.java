@@ -29,7 +29,7 @@ public class SignUpService {
         if ( dto.rawPassword()==null || dto.rawPassword().isBlank()){
             throw new IllegalArgumentException("Password is required!");
         }
-       var hash=passwordEncoder.encode(dto.rawPassword().strip());
+       var hash=passwordEncoder.encode(dto.rawPassword());
 
         var user=new User(
                 dto.nickname()

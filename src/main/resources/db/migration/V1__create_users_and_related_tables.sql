@@ -1,3 +1,4 @@
+--for postgresql 18+
 
 CREATE TYPE state_of_account AS ENUM(
     'active',
@@ -33,7 +34,7 @@ CREATE TYPE role AS ENUM(
 
 
 CREATE TABLE users(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT uuidv7(),
     nickname VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
     email VARCHAR(255) NOT NULL,
@@ -87,7 +88,7 @@ CREATE TABLE user_profiles(
 );
 
 CREATE TABLE hobby(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT uuidv7(),
     name VARCHAR(255) NOT NULL
 
 );
@@ -107,7 +108,7 @@ CREATE TABLE user_hobby(
 
 
 CREATE TABLE user_session(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT  uuidv7(),
     user_id UUID NOT NULL,
     hash VARCHAR(255) NOT NULL,
     expires_at TIMESTAMPTZ NOT NULL,
@@ -124,7 +125,7 @@ CREATE TABLE user_session(
 
 
 CREATE TABLE one_time_token(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT   uuidv7(),
     user_id UUID NOT NULL,
     hash VARCHAR(255) NOT NULL,
     expires_at TIMESTAMPTZ NOT NULL,

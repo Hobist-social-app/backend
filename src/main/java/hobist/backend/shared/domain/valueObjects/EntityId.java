@@ -1,9 +1,11 @@
 package hobist.backend.shared.domain.valueObjects;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.Embeddable;
 import lombok.NonNull;
 
 import java.util.UUID;
+
 
 @Embeddable
 public record EntityId(@NonNull UUID id) {
@@ -14,6 +16,6 @@ public record EntityId(@NonNull UUID id) {
     }
 
    public static EntityId generate() {
-        return new EntityId(UUID.randomUUID());
+        return new EntityId(UuidCreator.getTimeOrderedEpoch());
    }
 }
