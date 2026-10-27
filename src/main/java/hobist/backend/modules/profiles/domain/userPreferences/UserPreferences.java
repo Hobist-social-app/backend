@@ -12,6 +12,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -59,8 +60,8 @@ public class UserPreferences {
     @Column(name = "online_visibility", nullable = false, columnDefinition = "online_visibility")
     private OnlineVisibility onlineVisibility;
 
-    public UserPreferences(EntityId userId) {
-        this.userId = Objects.requireNonNull(userId, "User ID cannot be null!");
+    public UserPreferences(UUID userId) {
+        this.userId =new EntityId(Objects.requireNonNull(userId, "User ID cannot be null!"));
         this.language = Language.ENG;
         this.emailNotificationEnabled = true;
         this.pushNotificationEnabled = true;

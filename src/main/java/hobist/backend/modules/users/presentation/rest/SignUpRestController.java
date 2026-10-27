@@ -1,6 +1,6 @@
 package hobist.backend.modules.users.presentation.rest;
 
-import hobist.backend.modules.users.application.signUp.SignUpService;
+import hobist.backend.modules.users.application.commands.signUp.SignUpService;
 import hobist.backend.modules.users.application.dtos.signUp.SignUpRequestDto;
 import hobist.backend.modules.users.application.dtos.signUp.SignUpResponseDto;
 import lombok.RequiredArgsConstructor;

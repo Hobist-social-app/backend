@@ -28,5 +28,4 @@ public class EmailTests {
 
        assertThat(e).isInstanceOf(IllegalArgumentException.class);
     }
-
 }

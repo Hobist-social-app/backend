@@ -1,4 +1,4 @@
-package hobist.backend.modules.users.application.signUp;
+package hobist.backend.modules.users.application.commands.signUp;
 
 import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
