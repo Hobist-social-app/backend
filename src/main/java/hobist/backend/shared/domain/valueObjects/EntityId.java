@@ -16,6 +16,7 @@ public record EntityId(@NonNull UUID id) {
     }
 
    public static EntityId generate() {
+        //M.G: generates uuid version 7
         return new EntityId(UuidCreator.getTimeOrderedEpoch());
    }
 }

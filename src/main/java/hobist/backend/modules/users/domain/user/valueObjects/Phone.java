@@ -1,7 +1,7 @@
 package hobist.backend.modules.users.domain.user.valueObjects;
 
+import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import jakarta.persistence.Embeddable;
-import lombok.NonNull;
 
 @Embeddable
 public record Phone(String phone) {
@@ -12,7 +12,7 @@ public record Phone(String phone) {
     public Phone(String phone) {
         var phoneVal=stripAllWhiteSpaces(phone);
         if (!phoneVal.isEmpty() && !phoneVal.matches(E_164_PATTERN)) {
-            throw new IllegalArgumentException("Phone number must follow the E.164 format!");
+            throw new InvalidArgumentException("Phone number must follow the E.164 format!");
         }
 
         this.phone = phoneVal;

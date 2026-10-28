@@ -5,6 +5,7 @@ import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
 import hobist.backend.modules.users.application.dtos.signUp.SignUpRequestDto;
 import hobist.backend.modules.users.application.dtos.signUp.SignUpResponseDto;
+import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,9 @@ public class SignUpService {
     @Transactional
     public SignUpResponseDto signUp(@NonNull SignUpRequestDto dto) {
 
+
         if ( dto.rawPassword()==null || dto.rawPassword().isBlank()){
-            throw new IllegalArgumentException("Password is required!");
+            throw new InvalidArgumentException("Password is required!");
         }
        var hash=passwordEncoder.encode(dto.rawPassword());
 
@@ -41,7 +43,6 @@ public class SignUpService {
         userRepository.save(user);
 
        eventPublisher.publishEvent(new UserSignedUpEvent(user.getId().id(), Instant.now()));
-            //M.G: add listener class later
 
         return new SignUpResponseDto(user.getId().id());
     };

@@ -1,5 +1,6 @@
 package hobist.backend.modules.users.domain.user.valueObjects;
 
+import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import jakarta.persistence.Embeddable;
 import lombok.NonNull;
 
@@ -12,10 +13,10 @@ public record Email(@NonNull String email) {
 
 
     public Email(@NonNull String email) {
-        if (email == null) throw new IllegalArgumentException("Email cannot be null!");
+        if (email == null) throw new InvalidArgumentException("Email cannot be null!");
         var emailVal=email.strip();
         if (emailVal.length() > 254 || !emailVal.matches(EMAIL_PATTERN)) {
-            throw new IllegalArgumentException("Email must be a valid email address!");
+            throw new InvalidArgumentException("Email must be a valid format!");
         }
 
         this.email = emailVal;
