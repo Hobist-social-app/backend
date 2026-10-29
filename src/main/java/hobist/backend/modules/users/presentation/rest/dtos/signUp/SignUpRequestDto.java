@@ -1,4 +1,4 @@
-package hobist.backend.modules.users.application.dtos.signUp;
+package hobist.backend.modules.users.presentation.rest.dtos.signUp;
 
 public record SignUpRequestDto(
         String nickname

@@ -1,6 +1,7 @@
 package hobist.backend.users.user.valueObjects;
 
 import hobist.backend.modules.users.domain.user.valueObjects.Email;
+import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -23,9 +24,9 @@ public class EmailTests {
             "ivan..horvat@gmail.com", ".ivan@gmail.com", "ivan.@gmail.com",
             "ivan@gmail..com", "ivan@-gmail.com", "ivan@gmail-.com"})
     void shouldThrowException(String str){
-       IllegalArgumentException e =assertThrows(IllegalArgumentException.class
+       InvalidArgumentException e =assertThrows(InvalidArgumentException .class
                ,() -> new Email(str));
 
-       assertThat(e).isInstanceOf(IllegalArgumentException.class);
+       assertThat(e).isInstanceOf(InvalidArgumentException .class);
     }
 }
