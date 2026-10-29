@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PhoneTests {
+public class PhoneUnitTests {
 
     @ParameterizedTest
     @ValueSource(strings = {"385954174887", "385 95 417 4887",
