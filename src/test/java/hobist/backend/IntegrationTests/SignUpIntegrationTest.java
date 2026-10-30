@@ -1,18 +1,14 @@
 package hobist.backend.IntegrationTests;
 
-import hobist.backend.modules.profiles.domain.userPreferences.UserPreferences;
+import com.jayway.jsonpath.JsonPath;
 import hobist.backend.modules.profiles.infrastructure.userPreferences.UserPreferencesRepository;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
 import hobist.backend.shared.domain.valueObjects.EntityId;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
@@ -23,9 +19,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(properties = "spring.docker.compose.skip.in-tests=false")//M.G: SpringBootTest skips docker compose file so it cant connect to db without adding this in brackets.
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
 @Transactional
 public class SignUpIntegrationTest {
 
@@ -55,7 +50,7 @@ public class SignUpIntegrationTest {
 
        var id=new EntityId(
                UUID.fromString(
-                       response.getResponse().getContentAsString()
+                       JsonPath.read(response.getResponse().getContentAsString(), "$.id")
                ));
 
        var user = userRepository.findById(id).orElseThrow();
