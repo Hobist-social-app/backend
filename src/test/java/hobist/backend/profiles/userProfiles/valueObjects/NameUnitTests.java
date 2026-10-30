@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class NameTests {
+public class NameUnitTests {
 
     @ParameterizedTest
     @ValueSource(strings = {"tony","Ivan","aNa","aNasTazIja","KIZO","Čabo",""})
