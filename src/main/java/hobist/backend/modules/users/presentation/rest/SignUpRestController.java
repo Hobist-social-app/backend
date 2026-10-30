@@ -1,8 +1,8 @@
 package hobist.backend.modules.users.presentation.rest;
 
 import hobist.backend.modules.users.application.commands.signUp.SignUpService;
-import hobist.backend.modules.users.application.dtos.signUp.SignUpRequestDto;
-import hobist.backend.modules.users.application.dtos.signUp.SignUpResponseDto;
+import hobist.backend.modules.users.presentation.rest.dtos.signUp.SignUpRequestDto;
+import hobist.backend.modules.users.presentation.rest.dtos.signUp.SignUpResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

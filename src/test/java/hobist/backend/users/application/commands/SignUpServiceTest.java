@@ -1,7 +1,7 @@
 package hobist.backend.users.application.commands;
 
 import hobist.backend.modules.users.application.commands.signUp.SignUpService;
-import hobist.backend.modules.users.application.dtos.signUp.SignUpRequestDto;
+import hobist.backend.modules.users.presentation.rest.dtos.signUp.SignUpRequestDto;
 import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.modules.users.domain.user.enums.Role;
 import hobist.backend.modules.users.domain.user.enums.StateOfAccount;
