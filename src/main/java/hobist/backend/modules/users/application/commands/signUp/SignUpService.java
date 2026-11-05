@@ -1,10 +1,11 @@
 package hobist.backend.modules.users.application.commands.signUp;
 
+import hobist.backend.modules.users.application.dtos.UserSignUpServiceResponseDto;
 import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
-import hobist.backend.modules.users.presentation.rest.dtos.signUp.SignUpRequestDto;
-import hobist.backend.modules.users.presentation.rest.dtos.signUp.SignUpResponseDto;
+import hobist.backend.modules.authentication.presentation.dtos.signUp.SignUpRequestDto;
+import hobist.backend.modules.authentication.presentation.dtos.signUp.SignUpResponseDto;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
@@ -25,7 +26,7 @@ public class SignUpService {
     private final AbstractValidatingPasswordEncoder passwordEncoder;
 
     @Transactional
-    public SignUpResponseDto signUp(@NonNull SignUpRequestDto dto) {
+    public UserSignUpServiceResponseDto signUp(@NonNull SignUpRequestDto dto) {
 
 
         if ( dto.rawPassword()==null || dto.rawPassword().isBlank()){
@@ -44,7 +45,10 @@ public class SignUpService {
 
        eventPublisher.publishEvent(new UserSignedUpEvent(user.getId().id(), Instant.now()));
 
-        return new SignUpResponseDto(user.getId().id());
+        return new UserSignUpServiceResponseDto(user.getId().id()
+                ,user.getNickname().nickname()
+                ,user.getEmail().email()
+                ,user.getRole());
     };
 
 }

@@ -1,4 +1,4 @@
-package hobist.backend.modules.profiles.presentation.rest.dtos.profileCreation;
+package hobist.backend.modules.profiles.presentation.dtos.profileCreation;
 
 import java.util.UUID;
 

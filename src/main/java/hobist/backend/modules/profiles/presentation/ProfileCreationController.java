@@ -1,8 +1,7 @@
-package hobist.backend.modules.profiles.presentation.rest;
+package hobist.backend.modules.profiles.presentation;
 
-import hobist.backend.modules.profiles.presentation.rest.dtos.profileCreation.ProfileCreationRequestDto;
+import hobist.backend.modules.profiles.presentation.dtos.profileCreation.ProfileCreationRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +19,6 @@ public class ProfileCreationController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("");
+                .build();
     }
 }

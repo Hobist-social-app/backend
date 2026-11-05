@@ -8,6 +8,7 @@
 
 ## Future features
 
+    - refresh token
     - Home page
     - for you page
     - notifications
@@ -15,6 +16,7 @@
     - likeing,commenting
     - sending friend request to other users
     - chat with encrypted messages
+    - session tokens for "guest users"
     ...
 
 ## Future plans

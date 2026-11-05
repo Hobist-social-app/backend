@@ -1,8 +1,9 @@
-package hobist.backend.modules.users.presentation.rest;
+package hobist.backend.modules.authentication.presentation;
 
+import hobist.backend.modules.authentication.application.commands.RegistrationService;
 import hobist.backend.modules.users.application.commands.signUp.SignUpService;
-import hobist.backend.modules.users.presentation.rest.dtos.signUp.SignUpRequestDto;
-import hobist.backend.modules.users.presentation.rest.dtos.signUp.SignUpResponseDto;
+import hobist.backend.modules.authentication.presentation.dtos.signUp.SignUpRequestDto;
+import hobist.backend.modules.authentication.presentation.dtos.signUp.SignUpResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/signup")
 public class SignUpRestController {
 
-    private final SignUpService signUpService;
+    private final RegistrationService registrationService;
 
     @PostMapping
     public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto dto) {
-       var response=signUpService.signUp(dto);
+        // TODO: refactor for call from this module
+       var response= registrationService.singUp(dto);
 
        return ResponseEntity
                .status(HttpStatus.CREATED)
