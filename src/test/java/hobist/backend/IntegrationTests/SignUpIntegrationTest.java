@@ -1,9 +1,9 @@
 package hobist.backend.IntegrationTests;
 
 import com.jayway.jsonpath.JsonPath;
-import hobist.backend.modules.profiles.infrastructure.userPreferences.UserPreferencesRepository;
+import hobist.backend.modules.profiles.infrastructure.userpreferences.UserPreferencesRepository;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
-import hobist.backend.shared.domain.valueObjects.EntityId;
+import hobist.backend.shared.domain.valueobjects.EntityId;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

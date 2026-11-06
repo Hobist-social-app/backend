@@ -1,13 +1,13 @@
 package hobist.backend.users.application.commands;
 
-import hobist.backend.modules.users.application.commands.signUp.SignUpService;
-import hobist.backend.modules.authentication.presentation.dtos.signUp.SignUpRequestDto;
+import hobist.backend.modules.users.application.commands.signup.SignUpService;
+import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
 import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.modules.users.domain.user.enums.Role;
 import hobist.backend.modules.users.domain.user.enums.StateOfAccount;
 import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
-import hobist.backend.shared.domain.valueObjects.EntityId;
+import hobist.backend.shared.domain.valueobjects.EntityId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

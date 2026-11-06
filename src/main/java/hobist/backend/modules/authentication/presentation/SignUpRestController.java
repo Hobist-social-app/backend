@@ -1,9 +1,8 @@
 package hobist.backend.modules.authentication.presentation;
 
 import hobist.backend.modules.authentication.application.commands.RegistrationService;
-import hobist.backend.modules.users.application.commands.signUp.SignUpService;
-import hobist.backend.modules.authentication.presentation.dtos.signUp.SignUpRequestDto;
-import hobist.backend.modules.authentication.presentation.dtos.signUp.SignUpResponseDto;
+import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
+import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

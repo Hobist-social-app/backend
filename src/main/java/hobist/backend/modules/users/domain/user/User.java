@@ -1,11 +1,11 @@
 package hobist.backend.modules.users.domain.user;
 
 import hobist.backend.modules.users.domain.user.enums.Role;
-import hobist.backend.modules.users.domain.user.valueObjects.Email;
-import hobist.backend.modules.users.domain.user.valueObjects.Nickname;
-import hobist.backend.modules.users.domain.user.valueObjects.PasswordHash;
-import hobist.backend.modules.users.domain.user.valueObjects.Phone;
-import hobist.backend.shared.domain.valueObjects.EntityId;
+import hobist.backend.modules.users.domain.user.valueobjects.Email;
+import hobist.backend.modules.users.domain.user.valueobjects.Nickname;
+import hobist.backend.modules.users.domain.user.valueobjects.PasswordHash;
+import hobist.backend.modules.users.domain.user.valueobjects.Phone;
+import hobist.backend.shared.domain.valueobjects.EntityId;
 import hobist.backend.modules.users.domain.user.enums.StateOfAccount;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

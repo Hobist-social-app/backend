@@ -1,7 +1,7 @@
 package hobist.backend.modules.profiles.application.commands;
 
-import hobist.backend.modules.profiles.domain.userPreferences.UserPreferences;
-import hobist.backend.modules.profiles.infrastructure.userPreferences.UserPreferencesRepository;
+import hobist.backend.modules.profiles.domain.userpreferences.UserPreferences;
+import hobist.backend.modules.profiles.infrastructure.userpreferences.UserPreferencesRepository;
 import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

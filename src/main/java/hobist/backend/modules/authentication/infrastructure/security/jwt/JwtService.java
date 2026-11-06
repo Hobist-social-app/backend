@@ -1,5 +1,7 @@
 package hobist.backend.modules.authentication.infrastructure.security.jwt;
 
+import hobist.backend.modules.authentication.application.interfaces.TokenBasedAuthenticationService;
+import hobist.backend.modules.authentication.infrastructure.security.dtos.DataForTokenDto;
 import hobist.backend.modules.users.domain.user.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -16,7 +18,7 @@ import java.util.function.Function;
 import static io.jsonwebtoken.Jwts.claims;
 
 @Service
-public class JwtService {
+public class JwtService implements TokenBasedAuthenticationService<DataForTokenDto> {
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -58,10 +60,10 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public String generateToken(Map<String,Object> extraClaims, String nickname){
+    public String generateToken(DataForTokenDto dto) {
         return Jwts.builder()
-                .claims(extraClaims)
-                .subject(nickname)
+                .claims(dto.extraClaims())
+                .subject(dto.nickname())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+jwtExpiration))
                 .signWith(getSigningKey())

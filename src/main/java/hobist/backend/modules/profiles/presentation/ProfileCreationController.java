@@ -1,6 +1,6 @@
 package hobist.backend.modules.profiles.presentation;
 
-import hobist.backend.modules.profiles.presentation.dtos.profileCreation.ProfileCreationRequestDto;
+import hobist.backend.modules.profiles.presentation.dtos.profilecreation.ProfileCreationRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
