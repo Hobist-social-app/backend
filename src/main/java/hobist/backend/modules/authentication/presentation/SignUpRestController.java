@@ -20,7 +20,7 @@ public class SignUpRestController {
 
     @PostMapping
     public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto dto) {
-        // TODO: refactor for call from this module
+
        var response= registrationService.singUp(dto);
 
        return ResponseEntity

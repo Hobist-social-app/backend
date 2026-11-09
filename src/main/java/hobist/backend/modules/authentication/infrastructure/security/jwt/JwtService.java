@@ -67,6 +67,7 @@ public class JwtService implements TokenBasedAuthenticationService<DataForTokenD
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+jwtExpiration))
                 .signWith(getSigningKey())
+                .header().type("jwt").and()
                 .compact();
     }
 
