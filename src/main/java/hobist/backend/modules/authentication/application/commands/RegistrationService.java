@@ -4,7 +4,7 @@ import hobist.backend.modules.authentication.application.interfaces.TokenBasedAu
 import hobist.backend.modules.authentication.application.mapper.UserSignUpTokenMapper;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpResponseDto;
-import hobist.backend.modules.users.application.commands.signup.SignUpService;
+import hobist.backend.modules.users.application.commands.signup.UserCreationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegistrationService {
 
-    private final SignUpService signUpService;
+    private final UserCreationService userCreationService;
     private final TokenBasedAuthenticationService authenticationService;
     private final UserSignUpTokenMapper mapper;
 
     public SignUpResponseDto singUp(SignUpRequestDto dto) {
 
-        var serviceResponse=signUpService.signUp(dto);
+        var serviceResponse= userCreationService.signUp(dto);
 
         var dataForTokenDto = mapper.toDataForTokenDto(serviceResponse);
 

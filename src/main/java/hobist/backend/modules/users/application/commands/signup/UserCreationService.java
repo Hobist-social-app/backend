@@ -18,7 +18,7 @@ import java.time.Instant;
 
 @RequiredArgsConstructor
 @Service
-public class SignUpService {
+public class UserCreationService {
 
     private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;

@@ -1,6 +1,6 @@
 package hobist.backend.users.application.commands;
 
-import hobist.backend.modules.users.application.commands.signup.SignUpService;
+import hobist.backend.modules.users.application.commands.signup.UserCreationService;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
 import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.modules.users.domain.user.enums.Role;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SignUpServiceUnitTest {
+public class UserCreationServiceUnitTest {
 
     @Mock
     private UserRepository userRepository;
@@ -35,7 +35,7 @@ public class SignUpServiceUnitTest {
     private AbstractValidatingPasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private SignUpService signUpService;
+    private UserCreationService userCreationService;
 
     @Test
     void shouldSignUpUser(){
@@ -48,7 +48,7 @@ public class SignUpServiceUnitTest {
                 .thenReturn("hashedpassword123");
 
         var timestampBefore =Instant.now();
-        var responseDto= signUpService.signUp(requestDto);
+        var responseDto= userCreationService.signUp(requestDto);
         var timestampAfter =Instant.now();
 
         verify(passwordEncoder).encode("password123");
@@ -94,7 +94,7 @@ public class SignUpServiceUnitTest {
                 ,null);
 
 
-        assertThatThrownBy(() -> signUpService.signUp(requestDto))
+        assertThatThrownBy(() -> userCreationService.signUp(requestDto))
                 .isInstanceOf(IllegalArgumentException.class);
 
         verifyNoInteractions(userRepository, applicationEventPublisher, passwordEncoder);
@@ -108,7 +108,7 @@ public class SignUpServiceUnitTest {
                 ,"password123");
 
 
-        assertThatThrownBy(() -> signUpService.signUp(requestDto))
+        assertThatThrownBy(() -> userCreationService.signUp(requestDto))
                 .isInstanceOf(IllegalArgumentException.class);
 
         verifyNoInteractions(userRepository, applicationEventPublisher);
@@ -126,7 +126,7 @@ public class SignUpServiceUnitTest {
 
         when(userRepository.save(any(User.class))).thenThrow(new RuntimeException("db error"));
 
-        assertThatThrownBy(() -> signUpService.signUp(requestDto))
+        assertThatThrownBy(() -> userCreationService.signUp(requestDto))
                 .isInstanceOf(RuntimeException.class);
 
         verifyNoInteractions(applicationEventPublisher);

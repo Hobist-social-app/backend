@@ -1,4 +1,6 @@
 package hobist.backend.modules.authentication.presentation.dtos.login;
 
-public record LoginRequestDto(String email, String password) {
+import lombok.NonNull;
+
+public record LoginRequestDto(@NonNull String email,@NonNull String password) {
 }
