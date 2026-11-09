@@ -3,6 +3,7 @@ package hobist.backend.modules.authentication.presentation;
 import hobist.backend.modules.authentication.application.commands.LoginService;
 import hobist.backend.modules.authentication.presentation.dtos.login.LoginRequestDto;
 import hobist.backend.modules.authentication.presentation.dtos.login.LoginResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto dto) {
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto dto) {
 
         var response = loginService.login(dto);
 

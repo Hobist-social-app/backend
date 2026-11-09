@@ -8,6 +8,8 @@ import hobist.backend.modules.users.application.query.UserQueryService;
 import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import hobist.backend.shared.domain.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,10 +26,10 @@ public class LoginService {
     private final AbstractValidatingPasswordEncoder passwordEncoder;
     private final TokenBasedAuthenticationService<DataForTokenDto> authenticationService;
 
-    public LoginResponseDto login(@NonNull LoginRequestDto dto) {
+    public LoginResponseDto login(@Valid @NotBlank LoginRequestDto dto) throws InvalidArgumentException {
         if ( dto.email().isBlank()
                 ||  dto.password().isBlank()) {
-            throw new InvalidArgumentException("Email or nickname and password are required");
+            throw new InvalidArgumentException("credentials are required");
         }
 
         User user;

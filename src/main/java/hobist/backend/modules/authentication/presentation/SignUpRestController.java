@@ -3,6 +3,7 @@ package hobist.backend.modules.authentication.presentation;
 import hobist.backend.modules.authentication.application.commands.RegistrationService;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class SignUpRestController {
     private final RegistrationService registrationService;
 
     @PostMapping
-    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto dto) {
+    public ResponseEntity<SignUpResponseDto> signUp(@Valid @RequestBody SignUpRequestDto dto) {
 
        var response= registrationService.singUp(dto);
 

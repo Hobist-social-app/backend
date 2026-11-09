@@ -7,6 +7,8 @@ import hobist.backend.modules.users.infrastructure.user.UserRepository;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,7 +27,7 @@ public class UserCreationService {
     private final AbstractValidatingPasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserSignUpServiceResponseDto signUp(@NonNull SignUpRequestDto dto) {
+    public UserSignUpServiceResponseDto signUp(@Valid @NotNull SignUpRequestDto dto) throws InvalidArgumentException {
 
 
         if ( dto.rawPassword()==null || dto.rawPassword().isBlank()){

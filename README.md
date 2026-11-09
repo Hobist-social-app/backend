@@ -5,6 +5,12 @@
     Project is being refactored for new technology and architecture.
     This project will be deployed on vps.
 
+## Features
+
+    - account creation
+    - password hashing
+    - login
+    - jwt authentication
 
 ## Future features
 

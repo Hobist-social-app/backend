@@ -6,6 +6,8 @@ import hobist.backend.modules.users.domain.user.valueobjects.Nickname;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import hobist.backend.shared.domain.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,8 @@ public class UserQueryService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public User findByEmailOrNickname(@NonNull String identifier) {
+    public User findByEmailOrNickname(@NotBlank String identifier)
+            throws InvalidArgumentException,ResourceNotFoundException {
 
         if (identifier.isBlank()) {
             throw new InvalidArgumentException("Email or nickname is required");

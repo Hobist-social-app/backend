@@ -1,8 +1,10 @@
 package hobist.backend.modules.authentication.presentation.dtos.signup;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record SignUpRequestDto(
-        String nickname
+        @NotBlank String nickname
         ,String phone
-        ,String email
-        ,String rawPassword) {
+        ,@NotBlank String email
+        ,@NotBlank String rawPassword) {
 }

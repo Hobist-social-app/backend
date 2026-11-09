@@ -5,6 +5,8 @@ import hobist.backend.modules.authentication.application.mapper.UserSignUpTokenM
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpResponseDto;
 import hobist.backend.modules.users.application.commands.signup.UserCreationService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class RegistrationService {
     private final TokenBasedAuthenticationService authenticationService;
     private final UserSignUpTokenMapper mapper;
 
-    public SignUpResponseDto singUp(SignUpRequestDto dto) {
+    public SignUpResponseDto singUp(@Valid @NotBlank SignUpRequestDto dto) {
 
         var serviceResponse= userCreationService.signUp(dto);
 
