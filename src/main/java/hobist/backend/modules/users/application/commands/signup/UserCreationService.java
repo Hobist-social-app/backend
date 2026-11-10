@@ -4,12 +4,11 @@ import hobist.backend.modules.users.application.dtos.UserSignUpServiceResponseDt
 import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.modules.users.domain.user.events.UserSignedUpEvent;
 import hobist.backend.modules.users.infrastructure.user.UserRepository;
-import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
+import hobist.backend.modules.users.application.dtos.SignUpRequestDto;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.AbstractValidatingPasswordEncoder;
@@ -49,7 +48,7 @@ public class UserCreationService {
         return new UserSignUpServiceResponseDto(user.getId().id()
                 ,user.getNickname().nickname()
                 ,user.getEmail().email()
-                ,user.getRole());
+                ,user.getRole().toString());
     };
 
 }

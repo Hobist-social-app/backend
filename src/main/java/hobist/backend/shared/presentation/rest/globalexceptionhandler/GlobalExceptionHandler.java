@@ -3,6 +3,7 @@ package hobist.backend.shared.presentation.rest.globalexceptionhandler;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import hobist.backend.shared.presentation.rest.globalexceptionhandler.handlerhelperclasses.DataIntegrityViolationExceptionHelperClass;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -58,6 +59,26 @@ public class GlobalExceptionHandler {
                 .body("Http message not readable");
     }
 
+
+    @ExceptionHandler(NotImplementedException.class)
+    public ResponseEntity<String> handleNotImplementedFeature(NotImplementedException ex) {
+
+        log.error("Unexpected error while processing request", ex);
+
+        return ResponseEntity
+                .internalServerError()
+                .body("You reached feature that was not implemented yet!");
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<String> handleUnexpected(IllegalStateException ex) {
+
+        log.error("Unexpected error while processing request", ex);
+
+        return ResponseEntity
+                .internalServerError()
+                .body("Unexpected error occurred");
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleUnexpected(Exception ex) {

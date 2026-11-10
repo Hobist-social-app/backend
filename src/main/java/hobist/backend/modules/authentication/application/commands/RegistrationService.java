@@ -2,7 +2,7 @@ package hobist.backend.modules.authentication.application.commands;
 
 import hobist.backend.modules.authentication.application.interfaces.TokenBasedAuthenticationService;
 import hobist.backend.modules.authentication.application.mapper.UserSignUpTokenMapper;
-import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
+import hobist.backend.modules.users.application.dtos.SignUpRequestDto;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpResponseDto;
 import hobist.backend.modules.users.application.commands.signup.UserCreationService;
 import jakarta.validation.Valid;

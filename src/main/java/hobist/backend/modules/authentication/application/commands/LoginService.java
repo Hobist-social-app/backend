@@ -4,13 +4,12 @@ import hobist.backend.modules.authentication.application.interfaces.TokenBasedAu
 import hobist.backend.modules.authentication.infrastructure.security.dtos.DataForTokenDto;
 import hobist.backend.modules.authentication.presentation.dtos.login.LoginRequestDto;
 import hobist.backend.modules.authentication.presentation.dtos.login.LoginResponseDto;
+import hobist.backend.modules.users.application.dtos.LoginUserDto;
 import hobist.backend.modules.users.application.query.UserQueryService;
-import hobist.backend.modules.users.domain.user.User;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import hobist.backend.shared.domain.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.AbstractValidatingPasswordEncoder;
@@ -32,24 +31,26 @@ public class LoginService {
             throw new InvalidArgumentException("credentials are required");
         }
 
-        User user;
+        LoginUserDto userDto;
         try {
-            user = userQueryService.findByEmailOrNickname(dto.email());
+            userDto = userQueryService.findByEmailOrNickname(dto.email());
         } catch (ResourceNotFoundException ex) {
             throw new BadCredentialsException("Invalid credentials");
         }
 
-        if (!passwordEncoder.matches(dto.password(), user.getPasswordHash().password_hash())) {
+        if (!passwordEncoder.matches(dto.password(), userDto.password())) {
             throw new BadCredentialsException("Invalid credentials");
         }
 
+
+
         var dataForTokenDto = new DataForTokenDto(
                 Map.of(
-                        "userId", user.getId().id().toString(),
-                        "email", user.getEmail().email(),
-                        "role", user.getRole().toString()
+                        "userId", userDto.id().toString(),
+                        "email", userDto.email(),
+                        "role", userDto.role()
                 ),
-                user.getNickname().nickname()
+                userDto.nickname()
         );
 
         String token = authenticationService.generateToken(dataForTokenDto);

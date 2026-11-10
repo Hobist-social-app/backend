@@ -1,7 +1,7 @@
 package hobist.backend.modules.authentication.presentation;
 
 import hobist.backend.modules.authentication.application.commands.RegistrationService;
-import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpRequestDto;
+import hobist.backend.modules.users.application.dtos.SignUpRequestDto;
 import hobist.backend.modules.authentication.presentation.dtos.signup.SignUpResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

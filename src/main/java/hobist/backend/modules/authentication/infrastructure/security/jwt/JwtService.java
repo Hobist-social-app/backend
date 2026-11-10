@@ -52,8 +52,8 @@ public class JwtService implements TokenBasedAuthenticationService<DataForTokenD
         return UUID.fromString(rawString);
     }
 
-    public Role extractRole(String token){
-        return extractClaim(token,claims -> claims.get("role",Role.class));
+    public String extractRole(String token){
+        return extractClaim(token,claims -> claims.get("role",String.class));
     }
 
     public String extractNickname(String token) {

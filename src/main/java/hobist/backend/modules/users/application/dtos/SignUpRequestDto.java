@@ -1,4 +1,4 @@
-package hobist.backend.modules.authentication.presentation.dtos.signup;
+package hobist.backend.modules.users.application.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 

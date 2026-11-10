@@ -10,5 +10,5 @@ public record UserSignUpServiceResponseDto(
         @NotNull UUID id
         ,@NotNull String nickname
         ,@NotNull String email
-        ,@NotNull Role role) {
+        ,@NotNull String role) {
 }
