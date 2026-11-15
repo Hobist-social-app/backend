@@ -8,6 +8,7 @@ import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import hobist.backend.shared.domain.exceptions.ResourceNotFoundException;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserQueryService {
 
-    // TODO: add caching functionality
-
     private final UserRepository userRepository;
 
+    @Cacheable(value="user",key="#identifier")//M.G: here can redundant user get stored if user is not consistent with his indentifier(email or nickname)
     @Transactional(readOnly = true)
     public LoginUserDto findByEmailOrNickname(@NotBlank String identifier)
             throws InvalidArgumentException,ResourceNotFoundException {

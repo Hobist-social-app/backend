@@ -9,8 +9,9 @@ import hobist.backend.modules.users.application.query.UserQueryService;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import hobist.backend.shared.domain.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.AbstractValidatingPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,15 @@ public class LoginService {
     private final AbstractValidatingPasswordEncoder passwordEncoder;
     private final TokenBasedAuthenticationService<DataForTokenDto> authenticationService;
 
-    public LoginResponseDto login(@Valid @NotBlank LoginRequestDto dto) throws InvalidArgumentException {
-        if ( dto.email().isBlank()
+    public LoginResponseDto login(@Valid @NotNull LoginRequestDto dto) throws InvalidArgumentException {
+        if ( dto.identifier().isBlank()
                 ||  dto.password().isBlank()) {
             throw new InvalidArgumentException("credentials are required");
         }
 
         LoginUserDto userDto;
         try {
-            userDto = userQueryService.findByEmailOrNickname(dto.email());
+            userDto = userQueryService.findByEmailOrNickname(dto.identifier());
         } catch (ResourceNotFoundException ex) {
             throw new BadCredentialsException("Invalid credentials");
         }
@@ -47,7 +48,7 @@ public class LoginService {
         var dataForTokenDto = new DataForTokenDto(
                 Map.of(
                         "userId", userDto.id().toString(),
-                        "email", userDto.email(),
+                        "identifier", userDto.email(),
                         "role", userDto.role()
                 ),
                 userDto.nickname()

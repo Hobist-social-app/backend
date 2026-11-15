@@ -11,6 +11,7 @@
     - password hashing
     - login
     - jwt authentication
+    - redis caching
 
 ## Future features
 

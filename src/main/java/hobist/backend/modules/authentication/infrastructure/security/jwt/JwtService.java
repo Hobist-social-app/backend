@@ -44,7 +44,7 @@ public class JwtService implements TokenBasedAuthenticationService<DataForTokenD
     }
 
     public String extractEmail(String token){
-        return extractClaim(token,claim -> claim.get("email",String.class));
+        return extractClaim(token,claim -> claim.get("identifier",String.class));
     }
 
     public UUID extractUserId(String token){
