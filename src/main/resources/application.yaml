@@ -10,6 +10,14 @@ spring:
   flyway:
     enabled: true
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000
+      cache-null-values: false
+      use-key-prefix: true
+      key-prefix: "hobist:"
+
 server:
   servlet:
     context-path: /api/v1/

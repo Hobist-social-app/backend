@@ -19,7 +19,7 @@ public interface UserSignUpTokenMapper {
     default Map<String, Object> toExtraClaims(UserSignUpServiceResponseDto dto) {
         return Map.of(
                 "userId", dto.id().toString(),
-                "email", dto.email(),
+                "identifier", dto.email(),
                 "role", dto.role().toString()
         );
     }
