@@ -5,9 +5,16 @@
     Project is being refactored for new technology and architecture.
     This project will be deployed on vps.
 
+## Features
+
+    - account creation
+    - password hashing
+    - login
+    - jwt authentication
 
 ## Future features
 
+    - refresh token
     - Home page
     - for you page
     - notifications
@@ -15,6 +22,7 @@
     - likeing,commenting
     - sending friend request to other users
     - chat with encrypted messages
+    - session tokens for "guest users"
     ...
 
 ## Future plans

@@ -1,6 +1,6 @@
 package hobist.backend.users.user.valueObjects;
 
-import hobist.backend.modules.users.domain.user.valueObjects.Phone;
+import hobist.backend.modules.users.domain.user.valueobjects.Phone;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

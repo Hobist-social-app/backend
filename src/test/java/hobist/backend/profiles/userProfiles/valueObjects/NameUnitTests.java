@@ -1,6 +1,6 @@
 package hobist.backend.profiles.userProfiles.valueObjects;
 
-import hobist.backend.modules.profiles.domain.userProfiles.valueObjects.Name;
+import hobist.backend.modules.profiles.domain.userprofiles.valueobjects.Name;
 import hobist.backend.shared.domain.exceptions.InvalidArgumentException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

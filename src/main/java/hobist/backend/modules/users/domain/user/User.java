@@ -1,16 +1,20 @@
 package hobist.backend.modules.users.domain.user;
 
+import hobist.backend.modules.users.domain.user.Exceptions.UserBannedException;
+import hobist.backend.modules.users.domain.user.Exceptions.UserDeletedException;
 import hobist.backend.modules.users.domain.user.enums.Role;
-import hobist.backend.modules.users.domain.user.valueObjects.Email;
-import hobist.backend.modules.users.domain.user.valueObjects.Nickname;
-import hobist.backend.modules.users.domain.user.valueObjects.PasswordHash;
-import hobist.backend.modules.users.domain.user.valueObjects.Phone;
-import hobist.backend.shared.domain.valueObjects.EntityId;
+import hobist.backend.modules.users.domain.user.valueobjects.Email;
+import hobist.backend.modules.users.domain.user.valueobjects.Nickname;
+import hobist.backend.modules.users.domain.user.valueobjects.PasswordHash;
+import hobist.backend.modules.users.domain.user.valueobjects.Phone;
+import hobist.backend.shared.domain.valueobjects.EntityId;
 import hobist.backend.modules.users.domain.user.enums.StateOfAccount;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.NotImplementedException;
+import org.hibernate.TypeMismatchException;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -52,7 +56,7 @@ public class User {
 
    @Column(name = "updated_at",nullable = false)
    @UpdateTimestamp
-   private Instant updateAt;
+   private Instant updatedAt;
 
    @Enumerated(EnumType.STRING)
    @JdbcTypeCode(SqlTypes.NAMED_ENUM)//this and upper line is needed for translation of enum to postgreSQL naming convention
@@ -78,8 +82,48 @@ public class User {
       this.createdAt=Instant.now();
       this.lastLoginAt=Instant.now();
       this.deletedAt=null;
-      this.updateAt=Instant.now();
+      this.updatedAt =Instant.now();
       this.stateOfAccount=StateOfAccount.ACTIVE;
       this.role=Role.USER;
    }
+
+   public void EnsureAccountIsActive() throws UserBannedException, UserDeletedException,NotImplementedException, IllegalStateException{
+      switch (stateOfAccount){
+         case ACTIVE -> {}
+         case BANNED -> throw new UserBannedException("User is currently banned.");
+         case DELETED -> throw new UserDeletedException("User account is deleted.");
+         case SUSPENDED -> throw new NotImplementedException("");
+         case null -> throw new IllegalStateException("User status can't be null!");
+      };
+   }
+
+   // ToDo: add service for this method
+   public void refreshUpdatedAtAttribute(){
+      this.updatedAt=Instant.now();
+   }
+
+   // ToDo: add service for this method
+   public void refreshLastLoginAtAttribute(){
+      this.lastLoginAt=Instant.now();
+   }
+
+   // ToDo: add service for this method
+   public void BanAccount(){
+      EnsureAccountIsActive();
+
+      this.stateOfAccount=StateOfAccount.BANNED;
+      this.deletedAt=Instant.now();
+      refreshUpdatedAtAttribute();
+   }
+
+   // ToDo: add service for this method
+   public void UnBanAccount(){
+      if (this.stateOfAccount!=StateOfAccount.BANNED){
+         throw new TypeMismatchException("Account is not banned.");
+      }
+
+      this.stateOfAccount=StateOfAccount.ACTIVE;
+      this.deletedAt=null;
+   }
+
 }

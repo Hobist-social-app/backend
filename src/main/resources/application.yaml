@@ -13,3 +13,7 @@ spring:
 server:
   servlet:
     context-path: /api/v1/
+
+jwt:
+  secret: yzDY58gvBI18YtG+m4dXiMy8yi5dXISxwMn/Qy5qZjI=
+  expiration: 3600000
