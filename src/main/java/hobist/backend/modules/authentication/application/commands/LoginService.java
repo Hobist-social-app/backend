@@ -48,7 +48,7 @@ public class LoginService {
         var dataForTokenDto = new DataForTokenDto(
                 Map.of(
                         "userId", userDto.id().toString(),
-                        "identifier", userDto.email(),
+                        "email", userDto.email(),
                         "role", userDto.role()
                 ),
                 userDto.nickname()
