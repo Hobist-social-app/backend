@@ -25,3 +25,6 @@ server:
 jwt:
   secret: yzDY58gvBI18YtG+m4dXiMy8yi5dXISxwMn/Qy5qZjI=
   expiration: 3600000
+
+frontend:
+  address: "http://127.0.0.1:5173"
