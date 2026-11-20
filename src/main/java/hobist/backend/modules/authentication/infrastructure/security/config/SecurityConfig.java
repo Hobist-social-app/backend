@@ -26,7 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final AbstractValidatingPasswordEncoder passwordEncoder;
+   /* private final AbstractValidatingPasswordEncoder passwordEncoder;*/
 
     @Value("${frontend.address}")
     private String frontendAddress;
@@ -39,9 +39,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()//This is commonly used for CORS preflight requests. Before sending a cross-origin request, a browser may send an OPTIONS request to check whether the server allows the intended method and headers, such as Authorization.
-                        .requestMatchers("/api/v1/login").permitAll()
-                        .requestMatchers("/api/v1/signup").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/signup").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -55,21 +54,22 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(frontendAddress));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
+        config.setAllowCredentials(true);// needed for cookies
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
 
-    @Bean
+   /* @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.
+        authProvider.setUserDetailsService();
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
-    }
+    }*/
 
 }
