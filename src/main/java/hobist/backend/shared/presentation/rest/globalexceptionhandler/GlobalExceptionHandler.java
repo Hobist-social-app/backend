@@ -27,6 +27,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidArgumentException.class)
     public ResponseEntity<String> handleInvalidArgument(InvalidArgumentException ex) {
 
+        log.error("Unexpected error while processing request", ex);
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());
@@ -34,6 +36,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+
+        log.error("Unexpected error while processing request", ex);
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -54,9 +58,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
 
+        log.error("Unexpected error while processing request", ex);
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body("Http message not readable");
+                .body("Invalid request body. Check its format and field values.");
     }
 
 

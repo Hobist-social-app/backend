@@ -15,6 +15,8 @@ public class UserDomainExceptionHandler {
     @ExceptionHandler(UserBannedException.class)
     public ResponseEntity<String> handleBannedUser(UserBannedException ex) {
 
+        log.error("Unexpected error while processing request", ex);
+
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .body(ex.getMessage());
@@ -22,6 +24,8 @@ public class UserDomainExceptionHandler {
 
     @ExceptionHandler(UserDeletedException.class)
     public ResponseEntity<String> handleDeletedUser(UserDeletedException ex) {
+
+        log.error("Unexpected error while processing request", ex);
 
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)

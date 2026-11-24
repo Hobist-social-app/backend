@@ -11,7 +11,6 @@ import hobist.backend.shared.domain.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.AbstractValidatingPasswordEncoder;
 import org.springframework.stereotype.Service;

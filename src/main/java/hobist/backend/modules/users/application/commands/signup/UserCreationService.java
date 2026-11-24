@@ -41,7 +41,6 @@ public class UserCreationService {
                 ,dto.email()
                 ,hash);
 
-
         userRepository.save(user);
 
        eventPublisher.publishEvent(new UserSignedUpEvent(user.getId().id(), Instant.now()));

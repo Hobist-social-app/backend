@@ -1,6 +1,17 @@
 spring:
   application:
     name: backend
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   jpa:
     hibernate:
@@ -23,5 +34,8 @@ server:
     context-path: /api/v1/
 
 jwt:
-  secret: yzDY58gvBI18YtG+m4dXiMy8yi5dXISxwMn/Qy5qZjI=
+  secret: ${JWT_PASSWORD}
   expiration: 3600000
+
+frontend:
+  address: ${FRONTEND_ADDRESS}
